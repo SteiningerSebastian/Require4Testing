@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+	<!-- Inspired by https://www.youtube.com/watch?v=FaQ1Yc31NyM -->
+	<servlet>
+		<servlet-name>Require4Testing</servlet-name>
+		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Require4Testing</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>AuthorizationFilter</filter-name>
+		<filter-class>filter.AuthorizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthorizationFilter</filter-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</filter-mapping>
+</web-app>

@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+body{
+	margin: 0px !important;
+}
+
+.main{
+	margin: auto !important;
+	padding-top: 3em !important;
+	width: 80%;
+}
+
+input{
+	margin: 0.5em !important;
+}
+
+.center {
+	justify-content: center;
+	margin: auto;
+	text-align: center;
+	vertical-align: center;
+}
+
+.centerPanel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0 auto;
+}
+
+.backgroudColorGrey {
+	background-color: lightgray !important;
+}
+
+.navbar{
+	width:100% !important;
+	height: 5em;
+}
+
+.navbar td{
+	font-size: 1.5em;
+	text-align: center;
+	justify-content: center;
+	width: 20%;
+}
+
+.headerBar{
+	width: 100vw !important;
+}
+
+.headerBar h1 {
+	justify-content: center;
+	text-align: center;
+}
+
+.btn{
+	font-size: 1.3em;
+	background-color: dodgerblue;
+	color: white;
+	border: none;
+	padding:0.25em 1em;
+	cursor: pointer;
+}
+
+.btn:hover{
+	background-color: blue;
+}
+
+.selectedPage{
+	color:black;
+}
+
+.navigationLink:link{
+	color:blue;
+}
+
+.navigationLink:visited{
+	color:blue;
+}
+
+.textarea_description{
+	width: 500px;
+	height: 200px;
+}

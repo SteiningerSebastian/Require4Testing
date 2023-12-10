@@ -1,0 +1,39 @@
+<ui:composition template="/WEB-INF/templates/masterTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="title">TestRun-Management</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:dataTable value="#{requirementService.elements}" var="req"
+				sortBy="#{req.id}" sortOrder="ascending">
+				<p:column sortBy="#{req.id}">
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{req.id}" />
+				</p:column>
+				<p:column sortBy="#{req.name}">
+					<f:facet name="header">Anforderung</f:facet>
+					<h:outputText value="#{req.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Beschreibung</f:facet>
+					<!-- Inspired by: https://stackoverflow.com/questions/9874043/jsf-2-0-limit-value-of-houtputtext-to-a-specific-number-of-characters -->
+					<h:outputText value="#{req.description.length() gt 50 ? req.description.substring(0,47).concat('...') : req.description}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Modify</f:facet>
+					<h:commandLink action="#{requirementController.edit(req)}"
+						styleClass="navigationLink">Edit</h:commandLink>
+					<span><h:commandLink
+							styleClass="navigationLink" action="#{requirementService.delete(req)}">Delete</h:commandLink></span>
+				</p:column>
+			</p:dataTable>
+			<br />
+			<p:commandButton styleClass="btn" action="#{requirementController.add}"
+				value="Add" />
+		</h:form>
+	</ui:define>
+</ui:composition>
