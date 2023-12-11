@@ -7,7 +7,7 @@ import jakarta.inject.Named;
 @Named
 @Transactional
 public class RoleDAO extends DAO<Role> {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2680797406461953360L;
 
 	public RoleDAO() {
 		setType(Role.class);

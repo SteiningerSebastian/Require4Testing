@@ -8,29 +8,30 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p:dataTable value="#{userService.elements}" var="user"
-				sortBy="#{user.id}">
-				<p:column sortBy="#{user.id}">
+			<p:dataTable id="userDataTable" value="#{userController.users}"
+				var="sysUser" sortBy="#{sysUser.id}" sortOrder="ascending">
+				<p:column sortBy="#{sysUser.id}">
 					<f:facet name="header">ID</f:facet>
-					<h:outputText value="#{user.id}" />
+					<h:outputText value="#{sysUser.id}" />
 				</p:column>
-				<p:column sortBy="#{user.username}">
+				<p:column sortBy="#{sysUser.username}">
 					<f:facet name="header">Username</f:facet>
-					<h:outputText value="#{user.username}" />
+					<h:outputText value="#{sysUser.username}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">Rollen</f:facet>
-					<ui:repeat value="#{user.roles}" var="role">
+					<ui:repeat value="#{sysUser.roles}" var="role">
 						<h:outputText value="#{role.displayname}" />,
 				</ui:repeat>
 				</p:column>
 				<p:column>
 					<f:facet name="header">Modify</f:facet>
-					<h:commandLink action="#{userController.edit(user)}"
-						styleClass="navigationLink">Edit</h:commandLink>
-					<span><h:commandLink
-							rendered="#{authSession.user.getId() != user.getId()}"
-							styleClass="navigationLink" action="#{userService.delete(user)}">Delete</h:commandLink></span>
+					<p:commandLink action="#{userController.edit(sysUser)}"
+						styleClass="navigationLink">Edit</p:commandLink>
+					<span><p:commandLink
+							rendered="#{authSession.user.getId() != sysUser.getId()}"
+							styleClass="navigationLink"
+							action="#{userController.delete(sysUser)}" update="userDataTable">Delete</p:commandLink></span>
 				</p:column>
 			</p:dataTable>
 			<br />

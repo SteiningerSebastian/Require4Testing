@@ -11,17 +11,18 @@ import services.RequirementService;
 
 @Named
 @ViewScoped
-public class RequirementController implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TestCaseController implements Serializable {
+
+	private static final long serialVersionUID = 7135586004314800457L;
 
 	@Inject
 	protected RequirementService service;
-
-	//Consult the matching comment about scope and services in the UserController.
+	
+	// Consult the matching comment about scope and services in the UserController.
 	protected List<Requirement> requirements;
 
 	public List<Requirement> getRequirements() {
-		if(requirements == null)
+		if (requirements == null)
 			requirements = service.getElements();
 		return requirements;
 	}
@@ -31,17 +32,6 @@ public class RequirementController implements Serializable {
 	}
 
 	public String edit(Requirement requirement) {
-		return "requirementEdit?faces-redirect=true&requirement=" + requirement.getId();
-	}
-	
-	public String delete(Requirement requirement) {
-		service.delete(requirement);
-		requirements.remove(requirement);
-		return "";
-	}
-
-	public String add() {
-		Requirement requirement = service.add();
-		return "requirementEdit?faces-redirect=true&requirement=" + requirement.getId();
+		return "testCaseEditSelection?faces-redirect=true&requirement=" + requirement.getId();
 	}
 }

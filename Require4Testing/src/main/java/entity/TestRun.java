@@ -48,11 +48,11 @@ public class TestRun {
 		this.description = description;
 	}
 	
-	public SystemUser getAsignee() {
+	public SystemUser getAssignee() {
 		return this.assignee;
 	}
 	
-	public void setAsignee(SystemUser asignee) {
+	public void setAssignee(SystemUser asignee) {
 		this.assignee = asignee;
 	}
 	

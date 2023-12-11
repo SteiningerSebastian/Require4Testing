@@ -1,0 +1,46 @@
+<ui:composition template="/WEB-INF/templates/masterTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<f:metadata>
+		<f:viewParam name="requirement" value="#{testCaseEditSelectionController.requirementId}" />
+	</f:metadata>
+	
+	<ui:define name="title">TestEdit-Selection</ui:define>
+
+	<ui:define name="content">
+	<h2><h:outputText value="#{testCaseEditSelectionController.requirement.name}"/></h2>
+		<h:form>
+			<p:dataTable id="TestCaseDataTable" value="#{testCaseEditSelectionController.testCases}" var="tCase"
+				sortBy="#{tCase.id}" sortOrder="ascending">
+				<p:column sortBy="#{tCase.id}">
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{tCase.id}" />
+				</p:column>
+				<p:column sortBy="#{tCase.name}">
+					<f:facet name="header">Anforderung</f:facet>
+					<h:outputText value="#{tCase.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Beschreibung</f:facet>
+					<!-- Inspired by: https://stackoverflow.com/questions/9874043/jsf-2-0-limit-value-of-houtputtext-to-a-specific-number-of-characters -->
+					<h:outputText value="#{tCase.description.length() gt 50 ? tCase.description.substring(0,47).concat('...') : tCase.description}" />
+				</p:column>		
+				<p:column>
+					<f:facet name="header">Modify</f:facet>
+					<span><p:commandLink action="#{testCaseEditSelectionController.edit(tCase)}"
+						styleClass="navigationLink">Edit</p:commandLink></span>
+					<span><p:commandLink
+							styleClass="navigationLink" action="#{testCaseEditSelectionController.delete(tCase)}"
+							update="TestCaseDataTable">Delete</p:commandLink></span>
+				</p:column>
+			</p:dataTable>
+			<br />
+			<h:messages/>
+			<p:commandButton styleClass="btn" action="#{testCaseEditSelectionController.add}"
+				value="Add" />
+		</h:form>
+	</ui:define>
+</ui:composition>

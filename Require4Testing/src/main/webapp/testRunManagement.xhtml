@@ -8,8 +8,8 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p:dataTable value="#{testRunService.elements}" var="tRun"
-				sortBy="#{tRun.id}" sortOrder="ascending">
+			<p:dataTable id="TestRunDataTable" value="#{testRunController.testRuns}"
+				var="tRun" sortBy="#{tRun.id}" sortOrder="ascending">
 				<p:column sortBy="#{tRun.id}">
 					<f:facet name="header">ID</f:facet>
 					<h:outputText value="#{tRun.id}" />
@@ -21,17 +21,24 @@
 				<p:column>
 					<f:facet name="header">Beschreibung</f:facet>
 					<!-- Inspired by: https://stackoverflow.com/questions/9874043/jsf-2-0-limit-value-of-houtputtext-to-a-specific-number-of-characters -->
-					<h:outputText value="#{tRun.description.length() gt 50 ? tRun.description.substring(0,47).concat('...') : tRun.description}" />
+					<h:outputText
+						value="#{tRun.description.length() gt 50 ? tRun.description.substring(0,47).concat('...') : tRun.description}" />
+				</p:column>
+				<p:column sortBy="#{tRun.user.username}">
+					<f:facet name="header">Tester</f:facet>
+					<h:outputText value="#{tRun.assignee.username}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">Modify</f:facet>
-					<h:commandLink action="#{testRunController.edit(tRun)}"
-						styleClass="navigationLink">Edit</h:commandLink>
-					<span><h:commandLink
-							styleClass="navigationLink" action="#{testRunController.delete(tRun)}">Delete</h:commandLink></span>
+					<span><p:commandLink
+							action="#{testRunController.edit(tRun)}"
+							styleClass="navigationLink">Edit</p:commandLink></span>
+					<span><p:commandLink styleClass="navigationLink"
+							action="#{testRunController.delete(tRun)}" update="TestRunDataTable">Delete</p:commandLink></span>
 				</p:column>
 			</p:dataTable>
 			<br />
+			<h:messages />
 			<p:commandButton styleClass="btn" action="#{testRunController.add}"
 				value="Add" />
 		</h:form>

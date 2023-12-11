@@ -4,9 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import dao.DAO;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.model.DataModel;
+import jakarta.faces.model.ListDataModel;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 public abstract class EntityService<T> {
 	@Inject
@@ -15,7 +15,7 @@ public abstract class EntityService<T> {
 	private Class<T> type;
 
 	protected List<T> elements;
-
+	
 	public EntityService(Class<T> type) {
 		this.type = type;
 	}
@@ -24,6 +24,7 @@ public abstract class EntityService<T> {
 		T element;
 		try {
 			element = type.getDeclaredConstructor().newInstance();
+			getElements().add(element);
 			dao.add(element);
 			return element;
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException
@@ -34,6 +35,7 @@ public abstract class EntityService<T> {
 	}
 
 	public T add(T element) {
+		getElements().add(element);
 		dao.add(element);
 		return element;
 	}
@@ -57,6 +59,7 @@ public abstract class EntityService<T> {
 	}
 
 	public void delete(T element) {
+		getElements().remove(element);
 		dao.delete(element);
 	}
 }

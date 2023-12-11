@@ -12,9 +12,11 @@
 	<ui:define name="content">
 		<h:form>
 			<p:outputLabel for="inpUser" value="Nutzer " />
-			<p:inputText id="inpUser" value="#{userEditController.user.username}" />
+			<p:inputText id="inpUser" value="#{userEditController.user.username}" required="true" >
+				<f:validateLength minimum="4" maximum="32"/>
+			</p:inputText>
 			<br />
-			<p:outputLabel for="inpPassword" value="Password " />
+			<p:outputLabel for="inpPassword" value="Password (min. 4)" />
 			<p:password id="inpPassword"
 				value="#{userEditController.password}"/>
 			<br />
@@ -29,6 +31,7 @@
 					itemLabel="#{role.displayname}" itemValue="#{role}" />
 			</h:selectManyCheckbox>
 			<br />
+			<p:messages/>
 			<h:commandButton styleClass="btn" action="#{userEditController.save}"
 				value="Save" />
 

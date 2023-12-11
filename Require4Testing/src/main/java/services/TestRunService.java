@@ -1,23 +1,37 @@
 package services;
 
-import java.security.SecureRandom;
-import java.util.Random;
-import entity.Requirement;
+import java.util.List;
+
+import entity.SystemUser;
+import entity.TestCase;
 import entity.TestRun;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import dao.TestRunDAO;
 
 @Named
 @RequestScoped
 public class TestRunService extends EntityService<TestRun> {
-	// Password hashing etc. inspired by:
-	// https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
-	protected static final Random RANDROM = new SecureRandom();
-
-	protected static final int ITERATIONS = 120000;
-
+	
+	@Inject
+	protected TestCaseService testCaseService;
+	
 	public TestRunService() {
 		super(TestRun.class);
+	}
+	
+	@Override
+	public void delete(TestRun testRun) {
+		for(TestCase testCase: testCaseService.getByTestRun(testRun)) {
+			testCase.setTestRun(null);
+			testCaseService.update(testCase);
+		}
+		
+		super.delete(testRun);
+	}
+	
+	public List<TestRun> getByUser(SystemUser user) {
+		return ((TestRunDAO)dao).getByUser(user);
 	}
 }

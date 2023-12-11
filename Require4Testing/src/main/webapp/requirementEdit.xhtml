@@ -12,7 +12,7 @@
 	<ui:define name="content">
 		<h:form>
 			<p:outputLabel for="inpRequirementTitle" value="Name " />
-			<p:inputText id="inpRequirementTitle" value="#{requirementEditController.requirement.name}" />
+			<p:inputText id="inpRequirementTitle" value="#{requirementEditController.requirement.name}" required="true"/>
 			<br />
 			<p:outputLabel for="inpRequirementDesc" value="Beschreibung " />
 			<br />
@@ -20,6 +20,7 @@
 				value="#{requirementEditController.requirement.description}"/>
 			<br />
 			<br />
+			<p:messages/>
 			<h:commandButton styleClass="btn" action="#{requirementEditController.save}"
 				value="Save" />
 		</h:form>

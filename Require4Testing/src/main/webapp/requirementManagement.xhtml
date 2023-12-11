@@ -8,7 +8,8 @@
 
 	<ui:define name="content">
 		<h:form>
-			<p:dataTable value="#{requirementService.elements}" var="req"
+			<p:dataTable id="requirementDataTable"
+				value="#{requirementController.requirements}" var="req"
 				sortBy="#{req.id}" sortOrder="ascending">
 				<p:column sortBy="#{req.id}">
 					<f:facet name="header">ID</f:facet>
@@ -21,19 +22,22 @@
 				<p:column>
 					<f:facet name="header">Beschreibung</f:facet>
 					<!-- Inspired by: https://stackoverflow.com/questions/9874043/jsf-2-0-limit-value-of-houtputtext-to-a-specific-number-of-characters -->
-					<h:outputText value="#{req.description.length() gt 50 ? req.description.substring(0,47).concat('...') : req.description}" />
+					<h:outputText
+						value="#{req.description.length() gt 50 ? req.description.substring(0,47).concat('...') : req.description}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">Modify</f:facet>
-					<h:commandLink action="#{requirementController.edit(req)}"
-						styleClass="navigationLink">Edit</h:commandLink>
-					<span><h:commandLink
-							styleClass="navigationLink" action="#{requirementService.delete(req)}">Delete</h:commandLink></span>
+					<span><p:commandLink
+							action="#{requirementController.edit(req)}"
+							styleClass="navigationLink">Edit</p:commandLink></span>
+					<span><p:commandLink styleClass="navigationLink"
+							action="#{requirementController.delete(req)}"
+							update="requirementDataTable">Delete</p:commandLink></span>
 				</p:column>
 			</p:dataTable>
 			<br />
-			<p:commandButton styleClass="btn" action="#{requirementController.add}"
-				value="Add" />
+			<p:commandButton styleClass="btn"
+				action="#{requirementController.add}" value="Add" />
 		</h:form>
 	</ui:define>
 </ui:composition>

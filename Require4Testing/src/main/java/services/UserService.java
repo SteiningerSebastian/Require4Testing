@@ -12,8 +12,9 @@ import javax.crypto.spec.PBEKeySpec;
 
 import dao.SystemUserDAO;
 import entity.SystemUser;
-import jakarta.enterprise.context.ApplicationScoped;
+import entity.TestRun;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
@@ -24,6 +25,9 @@ public class UserService extends EntityService<SystemUser> {
 	protected static final Random RANDROM = new SecureRandom();
 
 	protected static final int ITERATIONS = 120000;
+	
+	@Inject
+	protected TestRunService testRunService;
 
 	public UserService() {
 		super(SystemUser.class);
@@ -31,6 +35,15 @@ public class UserService extends EntityService<SystemUser> {
 
 	public SystemUser identify(String username) {
 		return ((SystemUserDAO) dao).identify(username);
+	}
+	
+	@Override
+	public void delete(SystemUser user) {
+		for(TestRun testRun : testRunService.getByUser(user)) {
+			testRun.setAssignee(null);
+			testRunService.update(testRun);
+		}
+		super.delete(user);
 	}
 
 	public void setPassword(SystemUser user, String password) {

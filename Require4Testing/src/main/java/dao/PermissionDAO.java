@@ -7,7 +7,7 @@ import jakarta.inject.Named;
 @Named
 @Transactional
 public class PermissionDAO extends DAO<Permission> {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3415498307016403319L;
 
 	public PermissionDAO() {
 		setType(Permission.class);

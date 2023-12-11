@@ -24,7 +24,7 @@ public class NavigationController {
 	}
 
 	public String navigateToTestCase() {
-		return "testCase?Managementfaces-redirect=true";
+		return "testCaseManagement?faces-redirect=true";
 	}
 
 	public String navigateToUserManagement() {
@@ -33,7 +33,7 @@ public class NavigationController {
 	}
 
 	public String navigateToTests() {
-		return "testManagement?faces-redirect=true";
+		return "testResultManagement?faces-redirect=true";
 	}
 
 	public boolean isPage(String path) {

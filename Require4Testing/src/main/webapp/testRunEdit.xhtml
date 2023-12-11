@@ -12,22 +12,56 @@
 	<ui:define name="content">
 		<h:form>
 			<p:outputLabel for="inpTestRunName" value="Name " />
-			<p:inputText id="inpTestRunName" value="#{testRunEditController.testRun.name}" />
+			<p:inputText id="inpTestRunName"
+				value="#{testRunEditController.testRun.name}" />
 			<br />
 			<p:outputLabel for="inpTestRunDesc" value="Beschreibung " />
 			<br />
-			<p:inputTextarea styleClass="textarea_description" id="inpTestRunDesc"
-				value="#{testRunEditController.testRun.description}"/>
-			<br/>
+			<p:inputTextarea styleClass="textarea_description"
+				id="inpTestRunDesc"
+				value="#{testRunEditController.testRun.description}" />
+			<br />
 			<p:outputLabel for="inpTestRunAssignee" value="Beschreibung " />
-			<br/>
-			<p:selectOneMenu value="#{testRunEditController.testRun.assignee}">
-				<f:selectItems value="#{userService.elements}"/>
+			<br />
+			<p:selectOneMenu id="inpTestRunAssignee"
+				value="#{testRunEditController.assigneeId}">
+				<f:selectItems value="#{testRunEditController.testers}" var="user"
+					itemLabel="#{user.username}" itemValue="#{user.id}" />
 			</p:selectOneMenu>
 			<br />
 			<br />
-			<h:commandButton styleClass="btn" action="#{testRunEditController.save}"
-				value="Save" />
+			<h:messages />
+			<h:commandButton styleClass="btn"
+				action="#{testRunEditController.save}" value="Save" />
+			<p:dataTable id="TestCasesDataTable" value="#{testRunEditController.testCases}" var="tCase"
+				sortBy="#{tCase.id}" sortOrder="ascending">
+				<p:column sortBy="#{tCase.id}">
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{tCase.id}" />
+				</p:column>
+				<p:column sortBy="#{tCase.name}">
+					<f:facet name="header">Testfall</f:facet>
+					<h:outputText value="#{tCase.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Beschreibung</f:facet>
+					<!-- Inspired by: https://stackoverflow.com/questions/9874043/jsf-2-0-limit-value-of-houtputtext-to-a-specific-number-of-characters -->
+					<h:outputText
+						value="#{tCase.description.length() gt 50 ? tCase.description.substring(0,47).concat('...') : tCase.description}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Modify</f:facet>
+					<p:commandLink styleClass="navigationLink"
+						rendered="#{!testRunEditController.hasTestRun(tCase)}"
+						action="#{testRunEditController.addTestCase(tCase)}"
+						update="TestCasesDataTable">Assign</p:commandLink>
+					<p:commandLink
+						action="#{testRunEditController.removeTestCase(tCase)}"
+						rendered="#{testRunEditController.hasTestRun(tCase)}"
+						styleClass="navigationLink"
+						update="TestCasesDataTable">Remove</p:commandLink>
+				</p:column>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
