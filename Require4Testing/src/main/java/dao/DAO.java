@@ -19,7 +19,6 @@ public abstract class DAO<T> implements Serializable{
 	public void setType(Class<T> type) {
         this.type = type;
     }
-	
 
 	@SuppressWarnings("unchecked")
 	public List<T> getElements() {

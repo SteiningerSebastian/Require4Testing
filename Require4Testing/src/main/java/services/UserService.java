@@ -76,7 +76,7 @@ public class UserService extends EntityService<SystemUser> {
 	}
 
 	// Inspired by: https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
-	private static String toHex(byte[] array) throws NoSuchAlgorithmException {
+	protected static String toHex(byte[] array) throws NoSuchAlgorithmException {
 		BigInteger bi = new BigInteger(1, array);
 		String hex = bi.toString(16);
 
@@ -89,7 +89,7 @@ public class UserService extends EntityService<SystemUser> {
 	}
 
 	// Inspired by: https://howtodoinjava.com/java/java-security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
-	private static byte[] fromHex(String hex) throws NoSuchAlgorithmException {
+	protected static byte[] fromHex(String hex) throws NoSuchAlgorithmException {
 		byte[] bytes = new byte[hex.length() / 2];
 		for (int i = 0; i < bytes.length; i++) {
 			bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);

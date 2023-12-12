@@ -18,10 +18,10 @@ public class LoginController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	protected AuthSession auth;
+	protected AuthSession authSession;
 
 	public void validateUsername(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if (value != null && !auth.identify((String) value)) {
+		if (value != null && !authSession.identify((String) value)) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Wrong Username or Password!", "");
 			System.out.print("Wrong Username or Password!");
 			throw new ValidatorException(msg);
@@ -31,7 +31,7 @@ public class LoginController implements Serializable {
 	public void postValidatePassword(ComponentSystemEvent event) throws ValidatorException {
 		Object value = ((UIInput) event.getComponent()).getValue();
 
-		if ((value == null || !auth.authenticate((String) value)) && auth.getUser() != null) {
+		if ((value == null || !authSession.authenticate((String) value)) && authSession.getUser() != null) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Wrong Username or Password!", "");
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(event.getComponent().getClientId(), msg);
@@ -39,17 +39,17 @@ public class LoginController implements Serializable {
 	}
 
 	public String login() {
-		if (auth.getIsAuthenticated()) {
+		if (authSession.getIsAuthenticated()) {
 			//Define where to redirect if a given permission is set and a hierarchy if a user has multiple permissions.
-			if (auth.checkAuthorization("userManagement"))
+			if (authSession.checkAuthorization("userManagement"))
 				return "userManagement?faces-redirect=true";
-			else if (auth.checkAuthorization("requirementManagement"))
+			else if (authSession.checkAuthorization("requirementManagement"))
 				return "requirementManagement?faces-redirect=true";
-			else if (auth.checkAuthorization("testResultManagement"))
+			else if (authSession.checkAuthorization("testResultManagement"))
 				return "testResultManagement?faces-redirect=true";
-			else if (auth.checkAuthorization("testRunManagement"))
+			else if (authSession.checkAuthorization("testRunManagement"))
 				return "testRunManagement?faces-redirect=true";
-			else if (auth.checkAuthorization("testCaseManagement"))
+			else if (authSession.checkAuthorization("testCaseManagement"))
 				return "testCaseManagement?faces-redirect=true";
 			else
 				return "";
