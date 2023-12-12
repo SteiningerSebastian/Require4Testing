@@ -33,6 +33,7 @@ public class LoginController implements Serializable {
 
 		if ((value == null || !authSession.authenticate((String) value)) && authSession.getUser() != null) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Wrong Username or Password!", "");
+			//Inspired by: https://stackoverflow.com/questions/5807761/jsf-throw-facesmessage-from-regular-bean-method
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(event.getComponent().getClientId(), msg);
 		}
