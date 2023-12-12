@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import dao.DAO;
-import jakarta.faces.model.DataModel;
-import jakarta.faces.model.ListDataModel;
 import jakarta.inject.Inject;
 
 public abstract class EntityService<T> {

@@ -1,17 +1,11 @@
 package bean.controller;
 import java.io.Serializable;
-import java.util.List;
 
-import entity.Requirement;
-import entity.Role;
-import entity.SystemUser;
 import entity.TestCase;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import services.RequirementService;
 import services.TestCaseService;
-import services.UserService;
 
 @Named
 @ViewScoped
