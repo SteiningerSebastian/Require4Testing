@@ -15,8 +15,8 @@ import jakarta.inject.Named;
 @Named
 @ViewScoped
 public class LoginController implements Serializable {
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -2922618241037973521L;
+	
 	@Inject
 	protected AuthSession authSession;
 
